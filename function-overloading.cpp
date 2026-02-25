@@ -14,9 +14,9 @@ int add(int a, int b, int c){
 }
 
 int main(){
-    add(10);
-    add(10, 20);
-    add(10, 20, 30);
+   cout << add(10) << endl;
+   cout << add(10, 20) << endl;
+   cout << add(10, 20, 30) << endl;
 
     return 0;
 }
