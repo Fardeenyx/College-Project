@@ -10,8 +10,12 @@ class Counter {
         count = a;
     }
     
-    void operator++(){
+    void operator++(){ // Unary increment operator
         count++;
+    }
+
+    void operator--(){ // Unary decrement function operator
+        count--;
     }
 
     void show(){
@@ -22,14 +26,18 @@ class Counter {
 
 int main(){
     Counter n(10);
+    Counter x(20);
 
     cout << "Before: " << endl;
     n.show();
+    x.show();
 
-    ++n;
+    ++n; // Unary increment operator called
+    --x; // Unary decrement operator called
 
     cout << "After: " << endl;
     n.show();
+    x.show();
 
     return 0;
 }
