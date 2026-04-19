@@ -1,51 +1,110 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 class BankAccount
 {
 private:
-    float balance;
+    string customerName;
+    float bankBalance;
+    int PIN;
+    bool isLocked;
 
 public:
-    BankAccount()
+    BankAccount(string name, float balance, int pin)
     {
-        balance = 0.0;
+        customerName = name;
+        bankBalance = balance;
+        PIN = pin;
+        isLocked = false;
     }
 
-    int askChoice()
+    void enterPIN()
     {
-        int choice = 0;
+        int attempts = 3;
+        int pin;
+        bool loggedIn = false;
 
-        while (choice != 4)
+        cout << "Welcome to the ATM!" << endl;
+
+        while (attempts > 0)
         {
-            cout << "\n";
-            cout << "1. Withdraw." << endl;
-            cout << "2. Deposit." << endl;
-            cout << "3. Bank Balance." << endl;
-            cout << "4. Exit." << endl;
+            cout << "Enter your PIN: ";
+            cin >> pin;
 
-            cout << "Enter your choice: ";
-            cin >> choice;
-
-            while (choice > 4 || choice <= 0)
+            if (pin == PIN)
             {
-
-                cout << "Invalid choice! Enter a valid choice:";
-                cin >> choice;
+                loggedIn = true;
+                cout << "Login successful! Welcome, " << customerName << "!" << endl;
+                askChoice();
+                return;
             }
-
-            switch (choice)
+            else
             {
-            case 1: withdraw(); break;
-            case 2: deposit(); break;
-            case 3: checkBalance(); break;
-            case 4: return 0; break;
-            default: break;
+                attempts--;
+                if (attempts == 0)
+                {
+                    isLocked = true;
+                    cout << "Account Locked! Contact your bank!" << endl;
+                }
+                else
+                {
+                    cout << "Incorrect PIN! " << attempts << " attempts remaining." << endl;
+                }
             }
         }
     }
 
-    int withdraw()
+    void askChoice()
+    {
+        int choice = 0;
+
+        if (isLocked != true)
+        {
+            while (choice != 4)
+            {
+                cout << "\n";
+                cout << "1. Withdraw." << endl;
+                cout << "2. Deposit." << endl;
+                cout << "3. Bank Balance." << endl;
+                cout << "4. Exit." << endl;
+
+                cout << "Enter your choice: ";
+                cin >> choice;
+
+                while (choice > 4 || choice <= 0)
+                {
+
+                    cout << "Invalid choice! Enter a valid choice:";
+                    cin >> choice;
+                }
+
+                switch (choice)
+                {
+                case 1:
+                    withdraw();
+                    break;
+                case 2:
+                    deposit();
+                    break;
+                case 3:
+                    checkBalance();
+                    break;
+                case 4:
+                    return;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    void withdraw()
     {
         int amount;
 
@@ -55,19 +114,20 @@ public:
         if (amount < 0)
         {
             cout << "Invalid amount!";
-            return 0;
+            return;
         }
-        else if (amount > balance)
+        else if (amount > bankBalance)
         {
             cout << "Insufficient balance";
+            return;
         }
 
-        balance = balance - amount;
+        bankBalance = bankBalance - amount;
 
         cout << amount << " withdraw successful!" << endl;
     }
 
-    int deposit()
+    void deposit()
     {
         int deposit;
 
@@ -77,25 +137,24 @@ public:
         if (deposit < 0)
         {
             cout << "Invalid amount!";
-            return 0;
+            return;
         }
 
-        balance = balance + deposit;
+        bankBalance = bankBalance + deposit;
 
         cout << deposit << " Deposited to your account!" << endl;
     }
 
     void checkBalance()
     {
-        cout << "Your Bank Balance is: " << balance << endl;
+        cout << "Your Bank Balance is: " << bankBalance << endl;
     }
 };
 
 int main()
 {
-    BankAccount A1;
-
-    A1.askChoice();
+    BankAccount A1("Fardeen", 0.0, 1234);
+    A1.enterPIN();
 
     return 0;
 }
