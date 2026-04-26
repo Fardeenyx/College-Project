@@ -11,13 +11,13 @@ private:
 
 public:
 
-    Book(string name, string author){
+    Book(string name, string author){ //constructor
         BookTitle = name;
         AuthorName = author;
         Availability = true;
     }
 
-    void displayInfo()
+    void displayInfo() // To display info of the book 
     {
         cout << "\nTitle: " << BookTitle << endl;
         cout << "Author: " << AuthorName << endl;
@@ -31,7 +31,7 @@ public:
         }
     }
 
-    void choice()
+    void choice() // for the user input
     {
 
         int choice = 0;
@@ -69,7 +69,7 @@ public:
         } while (choice != 4);
     }
 
-    int borrowBook()
+    int borrowBook() // To Borrow the book 
     {
         string name;
         string email;
@@ -94,7 +94,7 @@ public:
         return Availability;
     }
 
-    int returnBook()
+    int returnBook() // To return the book
     {
         if (Availability == false)
         {
@@ -108,7 +108,7 @@ public:
         return Availability;
     }
 
-    void bookInfo()
+    void bookInfo() // Additional book info 
     {
         cout << "\nBook Name:" << BookTitle << endl;
         cout << "Book Author:" << AuthorName << endl;
@@ -124,7 +124,7 @@ public:
 
 int main()
 {
-    Book B1("The Alchemist", "Paulo Coelho");
+    Book B1("The Alchemist", "Paulo Coelho"); // Passing book info to default constructor
     B1.choice();
 
     return 0;
